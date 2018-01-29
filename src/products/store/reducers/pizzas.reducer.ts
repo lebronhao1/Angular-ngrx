@@ -14,14 +14,14 @@ export const initialState: PizzaState = {
       toppings: [
         {
           id: 10,
-          name: "pepperoni"
-        }
+          name: "pepperoni",
+        },
       ],
-      id: 3
-    }
+      id: 3,
+    },
   ],
   loaded: false,
-  loading: false
+  loading: false,
 };
 
 export function reducer(
@@ -32,21 +32,24 @@ export function reducer(
     case fromPizzasAction.LOAD_PIZZAS: {
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     }
     case fromPizzasAction.LOAD_PIZZAS_SUCCESS: {
+      const data = action.payload;
+
       return {
         ...state,
         loading: false,
-        loaded: true
+        loaded: true,
+        data,
       };
     }
     case fromPizzasAction.LOAD_PIZZAS_FAIL: {
       return {
         ...state,
         loading: false,
-        loaded: false
+        loaded: false,
       };
     }
     default:
