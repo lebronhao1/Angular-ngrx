@@ -70,7 +70,13 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.NamedModulesPlugin(),
     new webpack.ContextReplacementPlugin(
       /angular(\\|\/)core(\\|\/)@angular/,
-      path.resolve(__dirname, './notfound')
+      path.resolve(__dirname, "./notfound")
+    ),
+    // Workaround for https://github.com/angular/angular/issues/11580
+    new webpack.ContextReplacementPlugin(
+      // The (\\|\/) piece accounts for path separators in *nix and Windows
+      /angular(\\|\/)core(\\|\/)(@angular|esm5)/,
+      path.resolve(__dirname, "../src")
     )
   );
 }
