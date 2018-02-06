@@ -10,6 +10,7 @@ import * as fromStore from "../../store";
 @Component({
   selector: "products",
   styleUrls: ["products.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="products">
       <div class="products__new">
@@ -38,7 +39,5 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
     this.pizzas$ = this.store.select(fromStore.getAllPizzas);
-    this.store.dispatch(new fromStore.LoadPizzas());
-    this.store.dispatch(new fromStore.LoadToppings());
   }
 }
