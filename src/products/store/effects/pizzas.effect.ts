@@ -7,6 +7,7 @@ import { of } from "rxjs/observable/of";
 import * as pizzaActions from "../actions/pizzas.action";
 import * as fromServices from "../../services";
 import { Pizza } from "src/products/models/pizza.model";
+import { fromCallback } from "bluebird";
 
 @Injectable()
 export class PizzasEffects {
@@ -36,6 +37,19 @@ export class PizzasEffects {
         .pipe(
           map(pizza => new pizzaActions.CreatePizzaSuccess(pizza)),
           catchError(error => of(new pizzaActions.LoadPizzasFail(error)))
+        );
+    })
+  );
+
+  @Effect()
+  updatePizza$ = this.action$.ofType(pizzaActions.UPDATE_PIZZA).pipe(
+    map((action: pizzaActions.CreatePizza) => action.payload),
+    switchMap((pizza: Pizza) => {
+      return this.pizzaService
+        .updatePizza(pizza)
+        .pipe(
+          map(pizza => new pizzaActions.UpdatePizzaSuccess(pizza)),
+          catchError(error => of(new pizzaActions.UpdatePizzaFail(error)))
         );
     })
   );

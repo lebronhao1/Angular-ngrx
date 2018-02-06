@@ -55,7 +55,8 @@ export function reducer(
       };
     }
 
-    case fromPizzasAction.CREATE_PIZZA_SUCCESS: {
+    case fromPizzasAction.CREATE_PIZZA_SUCCESS:
+    case fromPizzasAction.UPDATE_PIZZA_SUCCESS: {
       const pizza = action.payload;
       const entities = {
         ...state.entities,
